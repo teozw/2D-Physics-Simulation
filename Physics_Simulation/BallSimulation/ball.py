@@ -2,6 +2,7 @@ import math
 import pygame.draw
 from PlanetSimulation.planet import Planet
 from utils.function import *
+from typing import Self
 
 
 class Ball(Planet):
@@ -10,10 +11,10 @@ class Ball(Planet):
         super().__init__(xpos, ypos, velox, veloy, radius, color, id, mass)
         self.res = restitution
 
-    def get_resultant_velo(self):
+    def get_resultant_velo(self) -> float:
         return math.sqrt(self.velo[0] ** 2 + self.velo[1] ** 2)
 
-    def move(self, dt, gravity, width, height, scale):
+    def move(self, dt, gravity, width, height, scale) -> None:
         stop = 0.2
         self.velo = list(map(lambda x: round(x, 5), self.velo))
 
@@ -46,7 +47,7 @@ class Ball(Planet):
 
         self.pos[0] += (self.velo[0] * dt) * scale
 
-    def solve_collision(self, other, angle):
+    def solve_collision(self, other : Self, angle) -> None:
         # Variables
         m1 = self.mass
         m2 = other.mass
@@ -65,7 +66,7 @@ class Ball(Planet):
         self.velo = [final_velo1 * cos - v1_y * sin, final_velo1 * sin + v1_y * cos]
         other.velo = [final_velo2 * cos - v2_y * sin, final_velo2 * sin + v2_y * cos]
 
-    def check_collision(self, particles: list):
+    def check_collision(self, particles: list[Self]) -> None:
 
         for other in particles:
             if other.id != self.id and other.id != 0:
