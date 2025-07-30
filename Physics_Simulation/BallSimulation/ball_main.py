@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 running = True
 
 
-def main_ball_simulation(w, h):
+def main_ball_simulation(w : int | float, h : int | float):
     # Initialization
     global running
     pygame.display.set_caption('Particle Simulation')
